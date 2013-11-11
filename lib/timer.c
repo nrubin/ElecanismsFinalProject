@@ -118,6 +118,13 @@ void timer_setPeriod(_TIMER *self, float period) {
     }
 }
 
+void u16_timer_setPeriod_lowFCY(_TIMER *self, uint16_t period) {
+    timer_stop(self);
+    poke(self->TxCON, 0x0000);
+    poke(self->PRx, period);
+}
+
+
 float timer_period(_TIMER *self) {
     uint16_t prescalar = (peek(self->TxCON)&0x0030)>>4;
 
@@ -188,6 +195,18 @@ void timer_after(_TIMER *self, float delay, uint16_t num_times,
     timer_enableInterrupt(self);
     timer_start(self);
 }
+
+void u16_timer_after_lowFCY(_TIMER *self, uint16_t delay, uint16_t num_times, 
+                 void (*callback)(_TIMER *self)) {
+    timer_disableInterrupt(self);
+    u16_timer_setPeriod_lowFCY(self, delay);
+    self->aftercount = num_times;
+    self->every = NULL;
+    self->after = callback;
+    timer_enableInterrupt(self);
+    timer_start(self);
+}
+
 
 void timer_cancel(_TIMER *self) {
     timer_disableInterrupt(self);
