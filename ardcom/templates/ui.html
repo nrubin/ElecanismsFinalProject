@@ -1,0 +1,228 @@
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script type="text/javascript">
+(function(){
+'use strict'
+var rgbs = ['#0000ff', '#0005ff', '#000aff', '#000fff', '#0014ff', '#0019ff', '#001eff', '#0023ff', '#0028ff', '#002dff', '#0032ff', '#0037ff', '#003cff', '#0041ff', '#0046ff', '#004bff', '#0050ff', '#0055ff', '#005aff', '#005fff', '#0064ff', '#0069ff', '#006eff', '#0073ff', '#0078ff', '#007dff', '#0082ff', '#0087ff', '#008cff', '#0091ff', '#0096ff', '#009bff', '#00a0ff', '#00a5ff', '#00aaff', '#00afff', '#00b4ff', '#00b9ff', '#00beff', '#00c3ff', '#00c8ff', '#00cdff', '#00d2ff', '#00d7ff', '#00dcff', '#00e1ff', '#00e6ff', '#00ebff', '#00f0ff', '#00f5ff', '#00faff', '#00ffff', '#00ffff', '#00fffa', '#00fff5', '#00fff0', '#00ffeb', '#00ffe6', '#00ffe1', '#00ffdc', '#00ffd7', '#00ffd2', '#00ffcd', '#00ffc8', '#00ffc3', '#00ffbe', '#00ffb9', '#00ffb4', '#00ffaf', '#00ffaa', '#00ffa5', '#00ffa0', '#00ff9b', '#00ff96', '#00ff91', '#00ff8c', '#00ff87', '#00ff82', '#00ff7d', '#00ff78', '#00ff73', '#00ff6e', '#00ff69', '#00ff64', '#00ff5f', '#00ff5a', '#00ff55', '#00ff50', '#00ff4b', '#00ff46', '#00ff41', '#00ff3c', '#00ff37', '#00ff32', '#00ff2d', '#00ff28', '#00ff23', '#00ff1e', '#00ff19', '#00ff14', '#00ff0f', '#00ff0a', '#00ff05', '#00ff00', '#00ff00', '#05ff00', '#0aff00', '#0fff00', '#14ff00', '#19ff00', '#1eff00', '#23ff00', '#28ff00', '#2dff00', '#32ff00', '#37ff00', '#3cff00', '#41ff00', '#46ff00', '#4bff00', '#50ff00', '#55ff00', '#5aff00', '#5fff00', '#64ff00', '#69ff00', '#6eff00', '#73ff00', '#78ff00', '#7dff00', '#82ff00', '#87ff00', '#8cff00', '#91ff00', '#96ff00', '#9bff00', '#a0ff00', '#a5ff00', '#aaff00', '#afff00', '#b4ff00', '#b9ff00', '#beff00', '#c3ff00', '#c8ff00', '#cdff00', '#d2ff00', '#d7ff00', '#dcff00', '#e1ff00', '#e6ff00', '#ebff00', '#f0ff00', '#f5ff00', '#faff00', '#ffff00', '#ffff00', '#fffa00', '#fff500', '#fff000', '#ffeb00', '#ffe600', '#ffe100', '#ffdc00', '#ffd700', '#ffd200', '#ffcd00', '#ffc800', '#ffc300', '#ffbe00', '#ffb900', '#ffb400', '#ffaf00', '#ffaa00', '#ffa500', '#ffa000', '#ff9b00', '#ff9600', '#ff9100', '#ff8c00', '#ff8700', '#ff8200', '#ff7d00', '#ff7800', '#ff7300', '#ff6e00', '#ff6900', '#ff6400', '#ff5f00', '#ff5a00', '#ff5500', '#ff5000', '#ff4b00', '#ff4600', '#ff4100', '#ff3c00', '#ff3700', '#ff3200', '#ff2d00', '#ff2800', '#ff2300', '#ff1e00', '#ff1900', '#ff1400', '#ff0f00', '#ff0a00', '#ff0500', '#ff0000'];
+
+var heats = [];
+
+
+function get_heat_value(intensity){
+	//takes a heat intensity from 0-1 and returns a color that matches its intensity
+	var index = Math.round(intensity*rgbs.length);
+	return rgbs[index];
+}
+
+function generate_servo_positions(resolution,radius){
+	// resolution: 0-180
+	// num_points = 180 / resolution
+	// x, y: 1 - radius
+	// xs, ys = 
+	var num_points = 180/resolution; //get the number of positions per servo
+	var pixel_res = radius / num_points; //get resolution in pixels
+	var x = 0;
+	var y = 0;
+	var xs = [];
+	var ys = [];
+	for (var k = 0; k < num_points+1; k++) {
+		if (x > 400) {
+			x = 400;
+		};
+		if (y > 400) {
+			y = 400;
+		};
+		xs.push(x);
+		ys.push(y);
+		x += pixel_res;
+		y += pixel_res;
+	};
+	var all = [];
+	var x = 0;
+	var y = 0;
+	for (var i = 0; i < xs.length; i++) {
+		x = xs[i];
+		for (var j = ys.length - 1; j >= 0; j--) {
+			y = ys[j];
+			if (distance(x,y,radius/2,radius/2) <= radius/2) {			
+				var loc = {"x" : x, "y" : y};
+				all.push(loc);
+			};
+		};
+		ys.reverse();
+	};
+	return all;
+}
+
+function draw_circle(ctx,radius,x,y,filled,fill_color){
+	//draws a circle
+	ctx.beginPath();
+	var startAngle     = 0;                     // Starting point on circle
+    var endAngle       = 2*Math.PI; // End point on circle
+    var anticlockwise  = true // clockwise or anticlockwise
+    ctx.arc(x, y, radius, startAngle, endAngle, anticlockwise);
+    ctx.lineWidth = 3;
+    if (filled) {
+    	ctx.fillStyle = fill_color;
+    	ctx.fill();
+    } else{
+		ctx.stroke();
+    };
+}
+
+function draw_coords(ctx){
+	//draws the crosshairs
+	var canvas = document.getElementById('canvas');
+	var radius = canvas.width/2;
+	ctx.strokeStyle = "black"
+	draw_circle(ctx,radius-5,radius,radius,false);
+	// ctx.strokeStyle = randomColor()
+	draw_circle(ctx,radius/1.2,radius,radius,false);
+	// ctx.strokeStyle = randomColor()
+	draw_circle(ctx,radius/1.5,radius,radius,false);
+	// ctx.strokeStyle = randomColor()
+	draw_circle(ctx,radius/2,radius,radius,false);
+	// ctx.strokeStyle = randomColor()
+	draw_circle(ctx,radius/2.5,radius,radius,false);
+	// ctx.strokeStyle = randomColor()
+	draw_circle(ctx,radius/4,radius,radius,false);
+	// ctx.strokeStyle = randomColor()
+	draw_circle(ctx,radius/8,radius,radius,false);
+	// ctx.strokeStyle = randomColor()
+	draw_circle(ctx,1,radius,radius,false);
+	ctx.fill()
+}
+
+function draw_line(ctx,startx,starty,endx,endy){
+	//draws a line from (startx,starty) to (endx,endy)
+	ctx.beginPath();
+	ctx.moveTo(startx,starty);
+	ctx.lineTo(endx,endy);
+	ctx.stroke();
+}
+
+function draw_new_target(ctx,radius,x,y){
+	// draws the crosshairs
+	ctx.clearRect(0,0,radius*2,radius*2); //erase the circle (ctx is still saved)
+	// draw_circle(ctx,5,x,y,true,get_heat_value(intensity))
+	var intensity = distance(x,y,radius,radius)/radius;
+	draw_coords(ctx);
+	heats.push(
+	{
+		"x" : x, "y" : y, "intensity" : intensity
+	})
+	for (var i = heats.length - 1; i >= 0; i--) {
+		var circ = heats[i];
+		draw_circle(ctx,5,circ.x,circ.y,true,get_heat_value(circ.intensity))
+	};
+	ctx.strokeStyle = "Grey";
+	// console.log(intensity)
+	// console.log(get_heat_value(intensity))
+	// ctx.strokeStyle = get_heat_value(intensity)
+	draw_line(ctx,x+5,y,x+10,y);
+	draw_line(ctx,x,y+5,x,y+10);
+	draw_line(ctx,x-5,y,x-10,y);
+	draw_line(ctx,x,y-5,x,y-10);
+	draw_circle(ctx,5,x,y,false);		
+}
+
+
+
+function randomColor(){
+	return '#'+Math.floor(Math.random()*16777215).toString(16); // from http://www.paulirish.com/2009/random-hex-color-code-snippets/
+}
+
+function distance(x1,y1,x2,y2){
+	return Math.sqrt(Math.pow((x2-x1),2) + Math.pow((y2-y1),2))
+}
+
+$(function(){
+	var canvas = document.getElementById('canvas');
+	var ctx = canvas.getContext('2d');
+	var radius = canvas.width/2;
+	console.log(radius);
+	var x = radius;
+	var y = radius;
+	draw_coords(ctx)
+
+	$('#canvas').click(function(ev){
+		//clear any previous targets
+		//get click coords (adjusted since they're not really on the mouse pointer ever, silly Ubuntu)
+		var x = ev.clientX-9;
+		var y = ev.clientY-7;
+		var centerx = radius;
+		var centery = radius;
+		var dis = distance(x,y,centerx,centery); //get the distance from the center of the circle
+		if (dis >= radius) {
+			console.log("circle out of range") //I don't want points outside of the circle
+		} else{
+			// let the web server know where to move the servos
+			$.post("/move",{
+			"x" : x, "y" : y
+			})
+			draw_new_target(ctx,radius,x,y); // draw the crosshairs
+		}
+	});
+
+	$("#scan").click(function(ev){
+		var res = parseInt($("#resolution").val());
+		var all = generate_servo_positions(res,radius*2);
+		var l = all.length;
+		// console.log(all);
+		for (var i = 0; i < l; i++) {
+			//pop the coordinates
+			//send them to the server
+			//use the post callback to set a "response received" variable and to get a distance
+			//have a while loop to wait until the response is received
+			var coords = all.pop()
+			var data_received = false;
+			$.post("/move",{
+				"x" : x, "y" : y
+				},function(data){
+					var distaince = data.distance;
+					data_received = true;
+			});
+			while (!data_received){
+								
+			}
+			window.setTimeout(function() {
+			console.log(coords);
+			draw_new_target(ctx,radius,coords.x,coords.y);
+		},200);	
+		};
+	});
+    
+});
+}());
+</script>
+<style type="text/css">
+	#btn-container{
+		/*margin-top: 10px;*/
+		text-align: center;	
+	}
+	#scan{
+		width:60px;
+		height:30px;
+	}
+	#content {
+		width: calc( {{radius}}px + 10px);
+	}
+	#resolution{
+		width: 20px;
+	}
+</style>
+</head>
+<body>
+<div id="content">
+		<canvas id="canvas" width="{{ radius }}" height="{{ radius }}">
+		</canvas>
+		<div id="btn-container">
+			<label for="resolution"> Resolution: </label>
+			<input type="text" id="resolution" value="1" />
+			<span> deg </span>
+			<input type="button" id="scan" value="Scan!" />
+		</div>
+</div>
+</body>
+</html>
