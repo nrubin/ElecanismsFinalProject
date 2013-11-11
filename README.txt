@@ -1,1 +1,1 @@
-Kinetic Tree Scuplture by Asa, Kat, Noam and Shivam
+Kinetic Tree Sculpture by Shivam Desai, Asa Eckert-Erdheim, Katherine Stegner, Noam Rubin
