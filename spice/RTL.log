@@ -1,21 +1,24 @@
 Circuit: * C:\Users\Noam\Documents\GitHub\elecanisms-final\spice\RTL.asc
 
+Limiting rise time of source v2 to 1e-007
+Limiting fall time of source v2 to 1e-007
 Direct Newton iteration for .op point succeeded.
 
-Date: Wed Dec 04 21:18:31 2013
-Total elapsed time: 0.064 seconds.
+Date: Thu Dec 05 14:20:05 2013
+Total elapsed time: 2.119 seconds.
 
 tnom = 27
 temp = 27
 method = modified trap
-totiter = 79
-traniter = 68
-tranpoints = 35
-accept = 35
-rejected = 0
+totiter = 129685
+traniter = 129681
+tranpoints = 47458
+accept = 34729
+rejected = 12729
 matrix size = 5
 fillins = 0
 solver = Normal
-Matrix Compiler1: 114 bytes object code size
-Matrix Compiler2: 301 bytes object code size
+Matrix Compiler1: 114 bytes object code size  0.2/0.2/[0.1]
+Matrix Compiler2: off  [0.1]/0.5/0.3
+
 
