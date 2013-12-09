@@ -1,0 +1,21 @@
+Circuit: * C:\Users\Noam\Documents\GitHub\elecanisms-final\spice\RTL.asc
+
+Direct Newton iteration for .op point succeeded.
+
+Date: Wed Dec 04 21:18:31 2013
+Total elapsed time: 0.064 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 79
+traniter = 68
+tranpoints = 35
+accept = 35
+rejected = 0
+matrix size = 5
+fillins = 0
+solver = Normal
+Matrix Compiler1: 114 bytes object code size
+Matrix Compiler2: 301 bytes object code size
+
