@@ -51,11 +51,9 @@
 #define freq		  250 // run the motor at 250Hz
 #define duty_init	  0
 
-// Define encoder direction constants
-#define emf_val_l	  32768 // the middle value for EMF_VAL
-#define emf_val_r	  32832 // the chatter value for EMF_VAL
-#define ENC_COUNT_MIN 865   // rails for encoder value
-#define ENC_COUNT_MAX 1138
+// Define track limits
+#define LIMIT_BEGIN	  0 	// reset the count to min
+#define LIMIT_END	  1000	// 					  max
 
 /***************************************************** 
 		Function Prototypes & Variables
@@ -146,18 +144,14 @@ void initMotor(void) {
 **************************************************/
 
 void __attribute__((interrupt, auto_psv)) _CNInterrupt(void) {
-    limit_start_serviceInterrupt();
-}                   
-
-void __attribute__((interrupt, auto_psv)) _CNInterrupt(void) {
-    limit_end_serviceInterrupt();
-}                   
+    limit_serviceInterrupt();
+}
 
 /*************************************************
             Interrupt Service Routines
 **************************************************/
 
-void encoder_serviceInterrupt() {
+void limit_serviceInterrupt() {
     IFS1bits.CNIF = 0; // clear change notification flag D[0]	
 	EMF_VAL = pin_read(EMF);
 	if (EMF_VAL > emf_val_r){
