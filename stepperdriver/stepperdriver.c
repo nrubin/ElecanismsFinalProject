@@ -9,41 +9,42 @@
 #include "timer.h"
 #include <stdio.h>
 
-#define SET_VELOCITY    0   // Vendor request that receives 2 unenesigned integer values
-#define GET_VALS    1   // Vendor request that returns 2 unsigned integer values
-#define CLEAR_REV 2 //Vender request that clears the rev counter
+#define GOTO_POS    0   // Vendor request that receives 2 unenesigned integer values
+#define SET_0    1   // Vendor request that returns 2 unsigned integer values
+#define GET_POS 2 //Vender request that clears the rev counter
 
 #define HB_TIMER &timer3
 #define CLK_TIMER &timer2
 #define STARTUP_TIMER &timer1
-#define ENABLE &D[0]
-#define CLK &D[1]
+#define ENABLE &D[1]
+#define CLK &D[0]
 #define RESET &D[2] 
 #define CW &D[3]
 
-uint16_t val1, val2, startup_counter,clk_out;
+uint16_t desired_pos, val2, startup_counter,clk_out, current_pos;
 
 
 void VendorRequests(void) {
     WORD temp;
 
     switch (USB_setup.bRequest) {
-        case SET_VELOCITY:
-            val1 = USB_setup.wValue.w;
+        case GOTO_POS:
+            desired_pos = USB_setup.wValue.w;
             BD[EP0IN].bytecount = 0;    // set EP0 IN byte count to 0 
             BD[EP0IN].status = 0xC8;    // send packet as DATA1, set UOWN bit
             break;
-        case CLEAR_REV:
+        case SET_0:
+            current_pos = 0;
             // DUTY = USB_setup.wValue.w;
             // REQUESTED_DIRECTION = USB_setup.wIndex.w;
             BD[EP0IN].bytecount = 0;    // set EP0 IN byte count to 0 
             BD[EP0IN].status = 0xC8;    // send packet as DATA1, set UOWN bit
             break;
-        case GET_VALS:
-            temp.w = val1;
+        case GET_POS:
+            temp.w = current_pos;
             BD[EP0IN].address[0] = temp.b[0];
             BD[EP0IN].address[1] = temp.b[1];
-            temp.w = val2;
+            temp.w = desired_pos;
             BD[EP0IN].address[2] = temp.b[0];
             BD[EP0IN].address[3] = temp.b[1];
             BD[EP0IN].bytecount = 4;    // set EP0 IN byte count to 4
@@ -96,9 +97,10 @@ void init(void){
 
     pin_write(CLK,0);
     pin_write(ENABLE,0);
-    pin_write(RESET,1);
+    pin_write(RESET,0);
     pin_write(CW,0);
     clk_out = 0;
+    current_pos = 0;
 }
 
 void startup(void){
@@ -126,18 +128,33 @@ int16_t main(void) {
     }
     while (1) {
         ServiceUSB();
-        pin_write(CLK,clk_out);
          if (timer_flag(HB_TIMER)) {
             timer_lower(HB_TIMER);
             led_toggle(&led1);
         }
-        if (timer_flag(STARTUP_TIMER)) {
-            timer_lower(STARTUP_TIMER);
-            ++startup_counter;
-        }
+        // if (timer_flag(STARTUP_TIMER)) {
+        //     timer_lower(STARTUP_TIMER);
+        //     ++startup_counter;
+        // }
         if (timer_flag(CLK_TIMER)) {
             timer_lower(CLK_TIMER);
-            clk_out = !clk_out;
+            if (desired_pos != current_pos)
+            {
+                if (desired_pos > current_pos)
+                {
+                    pin_write(CW,1); //forwards
+                    clk_out = !clk_out;
+                    pin_write(CLK,clk_out);
+                    ++current_pos;
+                } else {
+                    pin_write(CW,0); //backwards
+                    clk_out = !clk_out;
+                    pin_write(CLK,clk_out);
+                    --current_pos;
+                }
+
+            }
+            
             if (clk_out)
             {
                 led_on(&led2);
