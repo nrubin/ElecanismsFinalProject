@@ -1,0 +1,21 @@
+D00 - Motor2_CW/CCW
+D01 - Motor2_RESET
+D02 - Motor2_ENABLE
+D03 - Motor2_CLK
+D04 - Motor1_CLK
+D05 - Motor1_ENABLE
+D06 - Motor1_RESET
+D07 - Motor1_CW/CCW
+D08 - 
+D09 - 
+D10 - 
+D11 - 
+D12 - 
+D13 - 
+
+A00 -
+A01 -
+A02 -
+A03 -
+A04 -
+A05 -
