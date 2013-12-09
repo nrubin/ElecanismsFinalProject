@@ -1,0 +1,7 @@
+*.xls
+*.o
+*.lst
+*.hex
+*.elf
+*.dblite
+*.pyc
