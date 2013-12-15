@@ -3,7 +3,7 @@ import time
 class USBComm:
 
     def __init__(self):
-        print "Your UART cable better be plugged into the USB 2.0 port, or else kittens will cry"
+        # print "Your UART cable better be plugged into the USB 2.0 port, or else kittens will cry"
         self.GOTO_POS = 0
         self.SET_0 = 1
         self.GET_POS = 2
@@ -35,7 +35,7 @@ class USBComm:
         try:
             ret = self.dev.ctrl_transfer(0xC0, self.GET_POS, 0, 0, 4)
         except usb.core.USBError:
-            print "Could not send GET_VALS vendor request."
+            print "Could not send GET_POS vendor request."
         else:
             return [int(ret[0])+int(ret[1])*256, int(ret[2])+int(ret[3])*256]
 
