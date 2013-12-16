@@ -9,10 +9,11 @@
 #include "timer.h"
 #include <stdio.h>
 
-#define HB_TIMER        &timer1
+// #define HB_TIMER        &timer1
 #define CLK_TIMER       &timer2
 #define CONTROL_TIMER   &timer3
 #define MEASURE_TIMER   &timer4
+#define STOP_TIMER      &timer1
 #define POT         &A[0]
 #define M1_CW       &D[0]
 #define M1_RESET    &D[1] 
@@ -29,9 +30,10 @@
 #define SET_0       1   // Vendor request that returns  2 unsigned integer values
 #define GET_POS     2   // Vender request that clears the rev counter
 
-#define DEBOUNCE    200
+#define DEBOUNCE    1000
 #define ARR_SIZE    10
-#define BAD_VAL     1000
+#define BAD_VAL     5000
+#define INTERVAL    5000
 
 uint16_t val2, clk_out, m1_dpos, m2_dpos, m1_cpos, m2_cpos, m1_dir, m2_dir, m1_clk, m2_clk, limit1_counter,limit2_counter, limit1_prev, limit2_prev;
 uint16_t pot_val, prev_pot_val, new_pot_val;
@@ -90,17 +92,20 @@ void init(void){
     init_oc();
     InitUSB(); 
 
-    timer_setPeriod(HB_TIMER, 0.3);
-    timer_start(HB_TIMER);
+    // timer_setPeriod(HB_TIMER, 0.3);
+    // timer_start(HB_TIMER);
 
     timer_setPeriod(CLK_TIMER, 0.0022); 
     timer_start(CLK_TIMER);
 
-    timer_setPeriod(MEASURE_TIMER, 0.00001); 
+    timer_setPeriod(MEASURE_TIMER, 0.0001); 
     timer_start(MEASURE_TIMER);
 
     timer_setPeriod(CONTROL_TIMER, 0.001); 
     timer_start(CONTROL_TIMER);
+
+    timer_setPeriod(STOP_TIMER, 0.000001); 
+    timer_start(STOP_TIMER);
 
     pin_digitalOut(M1_ENABLE);
     pin_digitalOut(M1_CLK);
@@ -149,7 +154,7 @@ uint16_t within_interval(uint16_t actual, uint16_t desired, uint16_t interval){
 }
 
 void move_m1(void){
-    if (!within_interval(m1_cpos, m1_dpos, 5000))
+    if (!within_interval(m1_cpos, m1_dpos, INTERVAL))
     {
         pin_write(M1_RESET, 1);
         pin_write(M1_ENABLE, 1);
@@ -171,7 +176,7 @@ void move_m1(void){
 }
 
 void move_m2(void){
-    if (!within_interval(m2_cpos, m2_dpos, 5000))
+    if (!within_interval(m2_cpos, m2_dpos, INTERVAL))
     {
         pin_write(M2_RESET, 1);
         pin_write(M2_ENABLE, 1);
@@ -249,13 +254,19 @@ void STOP_LOOP(void){
         if (limit1_counter > DEBOUNCE)
         {
             m1_dpos = m1_cpos;
+            pin_write(M1_ENABLE, 0);
+            pin_write(M1_RESET, 0);
+            pin_write(M1_CLK, 0);
             limit1_counter = 0;
         }
 
         if (limit2_counter > DEBOUNCE)
         {
             m2_dpos = m2_cpos;
-            limit2_counter = 0;
+            pin_write(M2_ENABLE, 0);
+            pin_write(M2_RESET, 0);
+            pin_write(M2_CLK, 0);
+             limit2_counter = 0;
         }
 }
 
@@ -301,6 +312,10 @@ int16_t main(void) {
             CONTROL_LOOP();
         }
 
+        // if (timer_flag(STOP_TIMER)) {
+        //     timer_lower(STOP_TIMER);
+        //     STOP_LOOP();
+        // }
        
         if (timer_flag(CLK_TIMER)) {
             timer_lower(CLK_TIMER);
