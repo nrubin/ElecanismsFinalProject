@@ -9,11 +9,11 @@
 #include "timer.h"
 #include <stdio.h>
 
-// #define HB_TIMER        &timer1
+#define HB_TIMER        &timer1
 #define CLK_TIMER       &timer2
 #define CONTROL_TIMER   &timer3
 #define MEASURE_TIMER   &timer4
-#define STOP_TIMER      &timer1
+#define STOP_TIMER      &timer5
 #define POT         &A[0]
 #define M1_CW       &D[0]
 #define M1_RESET    &D[1] 
@@ -30,13 +30,16 @@
 #define SET_0       1   // Vendor request that returns  2 unsigned integer values
 #define GET_POS     2   // Vender request that clears the rev counter
 
-#define DEBOUNCE    1000
+#define DEBOUNCE    100
 #define ARR_SIZE    10
 #define BAD_VAL     5000
 #define INTERVAL    5000
+#define E_RETREAT   6000
 
 uint16_t val2, clk_out, m1_dpos, m2_dpos, m1_cpos, m2_cpos, m1_dir, m2_dir, m1_clk, m2_clk, limit1_counter,limit2_counter, limit1_prev, limit2_prev;
 uint16_t pot_val, prev_pot_val, new_pot_val;
+uint16_t limit1_hit, limit2_hit;
+uint16_t limit1_rpos, limit2_rpos;
 
 void VendorRequests(void) {
     WORD temp;
@@ -92,8 +95,8 @@ void init(void){
     init_oc();
     InitUSB(); 
 
-    // timer_setPeriod(HB_TIMER, 0.3);
-    // timer_start(HB_TIMER);
+    timer_setPeriod(HB_TIMER, 0.3);
+    timer_start(HB_TIMER);
 
     timer_setPeriod(CLK_TIMER, 0.0022); 
     timer_start(CLK_TIMER);
@@ -111,6 +114,7 @@ void init(void){
     pin_digitalOut(M1_CLK);
     pin_digitalOut(M1_RESET);
     pin_digitalOut(M1_CW);
+    
     pin_digitalOut(M2_ENABLE);
     pin_digitalOut(M2_CLK);
     pin_digitalOut(M2_RESET);
@@ -131,6 +135,10 @@ void init(void){
     m2_clk = 0;
     m1_cpos = 0;
     m1_dpos = 0;
+    m2_cpos = 0;
+    m2_dpos = 0;
+    limit1_hit = 0;
+    limit2_hit = 0;
 }
 
 void startup(void){
@@ -154,6 +162,14 @@ uint16_t within_interval(uint16_t actual, uint16_t desired, uint16_t interval){
 }
 
 void move_m1(void){
+    if (limit1_hit) 
+    {
+        if (within_interval(m1_cpos,limit1_rpos, INTERVAL))
+        {
+            m1_dpos = m1_cpos;
+            limit1_hit = 0;
+        }
+    }
     if (!within_interval(m1_cpos, m1_dpos, INTERVAL))
     {
         pin_write(M1_RESET, 1);
@@ -176,6 +192,14 @@ void move_m1(void){
 }
 
 void move_m2(void){
+    if (limit2_hit) 
+    {
+        if (within_interval(m2_cpos,limit2_rpos, INTERVAL))
+        {
+            m2_dpos = m2_cpos;
+            limit2_hit = 0;
+        }
+    }
     if (!within_interval(m2_cpos, m2_dpos, INTERVAL))
     {
         pin_write(M2_RESET, 1);
@@ -201,7 +225,6 @@ void MEASURE_LOOP(void){
     /*Should read the pot val and update the running average
     (must filter)
     */
-    
     pot_val = pin_read(POT);
     
     if ( abs(pot_val - prev_pot_val) > BAD_VAL )
@@ -211,8 +234,10 @@ void MEASURE_LOOP(void){
         new_pot_val = .25*pot_val + .75*prev_pot_val;            
         prev_pot_val = new_pot_val;
     }
-    m1_dpos = new_pot_val;
-    m2_dpos = new_pot_val;
+    if (!limit1_hit) {
+        m1_dpos = new_pot_val;
+        m2_dpos = new_pot_val;
+    }   
 }
 
 void CONTROL_LOOP(void){
@@ -223,7 +248,7 @@ void CONTROL_LOOP(void){
     check if the stepper is within an acceptable value of the set point
     */
     move_m1();
-    move_m2();
+    // move_m2();
 }
 
 void STOP_LOOP(void){
@@ -239,6 +264,22 @@ void STOP_LOOP(void){
             limit1_prev = 0;
         }
 
+        if (limit1_counter > DEBOUNCE)
+        {
+            if (m1_cpos > 32768)
+            {
+                limit1_rpos = m1_cpos - E_RETREAT;
+            } else {
+                limit1_rpos = m1_cpos + E_RETREAT;
+            }
+            m1_dpos = limit1_rpos;
+            pin_write(M1_ENABLE, 0);
+            pin_write(M1_RESET, 0);
+            // pin_write(M1_CLK, 0);
+            limit1_counter = 0;
+            limit1_hit = 1;
+        }
+
         if (pin_read(LIMIT2))
         {
             if (limit2_prev)
@@ -251,22 +292,20 @@ void STOP_LOOP(void){
             limit2_prev = 0;
         }
 
-        if (limit1_counter > DEBOUNCE)
-        {
-            m1_dpos = m1_cpos;
-            pin_write(M1_ENABLE, 0);
-            pin_write(M1_RESET, 0);
-            pin_write(M1_CLK, 0);
-            limit1_counter = 0;
-        }
-
         if (limit2_counter > DEBOUNCE)
         {
-            m2_dpos = m2_cpos;
+            if (m2_cpos > 32768)
+            {
+                limit2_rpos = m2_cpos - E_RETREAT;
+            } else {
+                limit2_rpos = m2_cpos + E_RETREAT;
+            }
+            m2_dpos = limit2_rpos;
             pin_write(M2_ENABLE, 0);
             pin_write(M2_RESET, 0);
-            pin_write(M2_CLK, 0);
-             limit2_counter = 0;
+            // pin_write(M1_CLK, 0);
+            limit2_counter = 0;
+            limit2_hit = 1;
         }
 }
 
@@ -291,36 +330,38 @@ int16_t main(void) {
     //     ServiceUSB();                       // ...service USB requests
     // }
 
-    while (1) {
+        while (1) {
 
-        // ServiceUSB();
-         // if (timer_flag(HB_TIMER)) {
-         //    timer_lower(HB_TIMER);
-         //    led_toggle(&led1);
-         //    // printf("pot = %u, new_pot = %u\n", pot_val, new_pot_val);
-         //    // printf("pot = %i, range1 = %i, range2 = %i, prev = %i\n", pot_val, pot_val+BAD_VAL, pot_val-BAD_VAL, prev_pot_val);
-         //    printf("pot = %u, new = %u, prev = %u, desired = %u, current = %u, delta = %u\n", pot_val, new_pot_val, prev_pot_val, m1_dpos, m1_cpos, m1_dpos-m1_cpos);
-        // }
+            // ServiceUSB();
+             if (timer_flag(HB_TIMER)) {
+                timer_lower(HB_TIMER);
+                led_toggle(&led1);
+                // printf("pot = %u, new_pot = %u\n", pot_val, new_pot_val);
+                // printf("pot = %i, range1 = %i, range2 = %i, prev = %i\n", pot_val, pot_val+BAD_VAL, pot_val-BAD_VAL, prev_pot_val);
+                // printf("pot = %u, new = %u, prev = %u, desired = %u, current = %u, delta = %u\n", pot_val, new_pot_val, prev_pot_val, m1_dpos, m1_cpos, m1_dpos-m1_cpos);
+                // printf("cpos = %u, dpos = %u, limit1_hit = %d, limit1_rpos = %u\n",m1_cpos,m1_dpos,limit1_hit,limit1_rpos);
+            }
 
-        if (timer_flag(MEASURE_TIMER)) {
-            timer_lower(MEASURE_TIMER);
-            MEASURE_LOOP();
-        }
+            if (timer_flag(MEASURE_TIMER)) {
+                timer_lower(MEASURE_TIMER);
+                MEASURE_LOOP();
+            }
 
-        if (timer_flag(CONTROL_TIMER)) {
-            timer_lower(CONTROL_TIMER);
-            CONTROL_LOOP();
-        }
+            if (timer_flag(CONTROL_TIMER)) {
+                timer_lower(CONTROL_TIMER);
+                CONTROL_LOOP();
+            }
 
-        // if (timer_flag(STOP_TIMER)) {
-        //     timer_lower(STOP_TIMER);
-        //     STOP_LOOP();
-        // }
-       
-        if (timer_flag(CLK_TIMER)) {
-            timer_lower(CLK_TIMER);
-            SIGNAL_LOOP();
+            // if (timer_flag(STOP_TIMER)) {
+            //     timer_lower(STOP_TIMER);
+            //     STOP_LOOP();
+            // }
+           
+            if (timer_flag(CLK_TIMER)) {
+                timer_lower(CLK_TIMER);
+                SIGNAL_LOOP();
         }
     }
 }
+
 
