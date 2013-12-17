@@ -1,6 +1,7 @@
-t = linspace(0,10,1000);
+t = linspace(0,10,100000);
 avg_value = 300;
-data = ones(size(t)) * avg_value;
+% data = ones(size(t)) * avg_value;
+data = sin(40*t) * avg_value;
 jitter = floor(rand(size(t)) * 50);
 data = data + jitter;
 random_indices = ceil(rand(1,50)*length(data));
@@ -9,12 +10,12 @@ for i=1:length(random_indices)
     data(rand_ind) = ceil(rand() * 65472);
 end
 plot(t,data);
-alpha = 0.2;
+alpha = 0.25;
 accumulator = ones(1,length(t))*300;
 
 for i = 2:length(t)
     %accumulator(i) = (alpha * x(i)) + (1.0 - alpha) * accumulator(i-1);
-    if abs(data(i) - accumulator(i-1)) > 1000
+    if abs(data(i) - accumulator(i-1)) > 500
         accumulator(i) = accumulator(i-1);
     else
         accumulator(i) = (1-alpha) * accumulator(i-1) + alpha * data(i);
@@ -24,4 +25,4 @@ end
 
 hold on;
 plot(t,accumulator,'r');
-ylim([290 360])
+% ylim([290 360])
