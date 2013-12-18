@@ -1,6 +1,7 @@
 .affix-top{
 	width:100%;
 	/*height:100%;*/
+    /*box-shadow: 0 10px 0;*/
 }
 
 .affix{
@@ -16,16 +17,19 @@
 
 .nav-active{
     background-color: #eee;
-}
-
-.section-header {
-    margin-top: 50px;
-}
+    height:100%;
+}s
 
 section {
     margin-top: -40px;
     padding-top: 40px;
 }
+
+img.hero{
+    width:1010px;
+    height:741px;
+}
+
 /*.navbar-nav li.active:after {
         content: " .";
         display: block;
