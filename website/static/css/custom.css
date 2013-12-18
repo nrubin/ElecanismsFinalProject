@@ -9,6 +9,23 @@
 	background-color: white;
 	/*padding-bottom: 5px;*/
 }
+
+.bigger {
+	font-size: large;
+}
+
+.nav-active{
+    background-color: #eee;
+}
+
+.section-header {
+    margin-top: 50px;
+}
+
+section {
+    margin-top: -40px;
+    padding-top: 40px;
+}
 /*.navbar-nav li.active:after {
         content: " .";
         display: block;
