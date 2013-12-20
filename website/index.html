@@ -31,102 +31,268 @@
                         </li>
                         <li><a href="#mechanical">Mechanical</a>
                         </li>
-                        <li><a href="#eletrical">Electrical</a>
+                        <li><a href="#electrical">Electrical</a>
                         </li>
                         <li><a href="#software">Software</a>
                         </li>
-                        <li><a href="#team">The Team</a>
+<!--                         <li><a href="#reflection">Reflection</a>
+                        </li>
+ -->                        <li><a href="#team">The Team</a>
                         </li>
                     </ul>
                 </div>
         </div>
         </nav>
         <section id="overview">
-            <div class="jumbotron">
+            <!-- <div class="jumbotron"> -->
+            <div class="hero-container">
                 <h1>The ElectriciTree</h1>
+                <div id="video-container">
+                    <iframe id="vid" width="640" height="360" src="http://www.youtube.com/embed/60Muj4gx5cU?start=5&end=41&autoplay=1&color=white&&loop=1&playlist=60Muj4gx5cU&modestbranding=1" frameborder="0" allowfullscreen></iframe>
+                </div>
                 <p id="abstract">
-                    <img data-original="https://dl.dropboxusercontent.com/u/11830885/elecanisms/2013-12-16%2003.24.33.jpg" class="hero lazy" />For our Elecanisms Final Project, we created the ElectriciTree, a kinetic sculpture of a living tree on a $250 budget in 5 weeks. The ElectriciTree features Buckyballs driven along tracks that function as tree branches, expanding and contracting. Five irises also open and close with the branches to reveal light.</p>
+                    For our Elecanisms Final Project, we created the ElectriciTree, a kinetic sculpture of a living tree on a $250 budget in 5 weeks. The ElectriciTree features Buckyballs driven along tracks that function as tree branches, expanding and contracting. Five irises also open and close with the branches to reveal light.</p>
             </div>
+            <!-- </div> -->
         </section>
         <section id="intro">
             <div class="page-header">
                 <h2>Introduction</h2>
-                <h4>Goals</h4>
-                <ul>
-                    <li>The final product should be mechanically beautiful</li>
-                    <li>It should be self-contained and robust, so that it could be a permanent installation</li>
-                    <li>The electrical system should included a printed circuit board</li>
-                </ul>
-                <h4>Inspiration</h4>
-                <h4>Results</h4>
-                <h4>The Future</h4>
-                <p>
-                    The goal of this project was to have an elegant piece of mechatronic artwork that could be displayed for Olin’s many visitors. We believe that this project resulted in a large step in the right direction, but some areas could use more work. [TODO] what areas?
-                </p>
-                <p>
-                    Next semester, we plan on applying for a student academic grant at Olin to fund our future endeavors with the ElectriciTree
-                </p>
             </div>
+            <h4>Goals</h4>
+            <ul>
+                <li>The final product should be mechanically beautiful</li>
+                <li>It should be self-contained and robust, so that it could be a permanent installation</li>
+                <li>The electrical system should included a printed circuit board</li>
+            </ul>
+            <h4>Results</h4>
+            <p>
+                At the end of the project period, the software system, LEDs, and branch movement worked, but due to excessive friction, the irises could not move and were left open for demo purposes. The limit switches were also not attached, although they were confirmed working with the software system. Overall, we are satisfied with the way the project went, although there is a lot of interest in trying to make a v2 in the spring semester.
+            </p>
+            <h4>The Future</h4>
+            <p>
+                The goal of this project was to have an elegant piece of mechatronic artwork that could be displayed for Olin&rsquo;s many visitors. We believe that this project resulted in a large step in the right direction, but some areas could use more work. [TODO] what areas?
+            </p>
+            <p>
+                Next semester, we plan on applying for a student academic grant at Olin to fund our future endeavors with the ElectriciTree.
+            </p>
+
         </section>
         <section id="mechanical">
             <div class="page-header">
                 <h2>The Mechanical System</h2>
             </div>
-            <p>The mechanical system contains two main subsystems: an extending and contracting branch system and an opening and closing mechanical aperture system. The goal of the mechanical system was to have these two systems work in conjunction to provide a visualization of growth and decay of a tree. </p>
-            <ul>
-                <li>Item</li>
-                <li>Item</li>
-                <li>Item</li>
-                <li>Item</li>
-                <li>Item</li>
-            </ul>
-            <p>Lorem ipsum Commodo voluptate ut nisi deserunt Ut dolor anim velit consequat dolor nulla consequat Excepteur ex sit ullamco sint do dolore ad ex ut dolor dolore sint fugiat.</p>
+            <p>The mechanical system contains two main subsystems: an extending and contracting branch system and an opening and closing mechanical aperture system. The goal of the mechanical system was to have these two systems work in conjunction to provide a visualization of growth and decay of a tree.</p>
+            <h3 id="branches">The Branches</h3>
+            <h4>Inspiration</h4>
+            <p>When determining the mechanism we would use to make the branches &ldquo;grow,&rdquo; simplicity and aesthetics were the two most important considerations. Simplicity is fairly self evident - given the limited time and money available, an easily implemented method was needed. Aesthetically, we wanted the growing mechanism to be elegant, continuous, and for the branches to be revealed, not predefined. Based on these criteria, we evaluated a number of different solutions.</p>
+            <h5>
+                <em>Telescoping Branches</em>
+            </h5>
+            <p>Our first thought was to create telescoping branches. However, telescoping mechanisms are both complex to manufacture well and only move in one direction, so capturing the flowing nature of tree branches would be very difficult.</p>
+            <h5>
+                <em>Cables</em>
+            </h5>
+            <p>In looking at ways to make the mechanism very simple, we turned to a marionette type system in which links were connected to one another and actuated. We planned to use a cable drive, but saw others attempt similar <a href="http://www.youtube.com/watch?v=TPJmOSTj7yk">systems using linkages </a>. Ultimately, this system was discarded for aesthetic reasons - we did not like being able to see the branches before they started to grow.</p>
+            <h5>
+                <em>Roller Chain</em>
+            </h5>
+            <p>
+                Returning to having material &ldquo;grow&rdquo; from the tree trunk, we turned to pushing and pulling material along a guide rail. Our first attempt at this was roller chain, inspired by <a href="http://www.youtube.com/watch?v=Tcw7IvGJG9s"> this video</a>. This was the closest to the overall look we wished to achieve, but there was too much friction, especially moving the roller chain around bends.
+
+            </p>
+            <h5>
+                <em>Ball Bearing/Spherical Magnets</em>
+            </h5>
+            <p>
+                Based on how visually appealing the roller chain was, we wanted to find a solution that would look similar but have a smaller bend radius. Ball bearings matched worked well for this, but maintaining continuity isn&rsquo;t possible with balls bearings. Spherical magnets solved this last issue.
+            </p>
+            <h4>
+                Track Design
+            </h4>
+            <p>
+                The tracks consist of three, &#8539;&rdquo; acrylic sheets and 5mm magnetic spheres. The path for each of the five branches is cut into the middle plate to guide the magnets and the outer two plates are used primarily to constrain the magnets and prevent them from falling out of the track. Acrylic was chosen because of its optical transparence. Other materials would have served between from a strength or friction standpoint, but using a transparent material means it is difficult to see the track, thus maintaining the revealing aspect as the branches grow.
+            </p>
+            <p>
+                One of the most difficult issues to deal with friction. As we experienced with the roller chain, pushing metal through curved paths in plastic makes the system difficult to drive. This issue was partially resolved by making gentle curves in the path rather than steep turns. Still, there was considerable friction. To reduce the friction to a manageable level, we coated the magnetic balls with a dry, Teflon lubricant.
+            </p>
+            <h4>
+                The Rake
+            </h4>
+            <p>Driving the magnetic branches forwards and backwards was achieved using a small &ldquo;rake,&rdquo; a part that has tines for each of the five paths. Each of these tines is an alloy steel dowel pin. Using steel means that the magnetic sphere that make up each branch are attracted to the tines, allowing them to push and pull the branches. The dowel pins are press fit into a small holder made from &frac12;&rdquo;, lasercut acrylic. This acrylic piece also holds a nut and bushing that connect it to the lead screw transmission.
+
+            </p>
+            <p>The tines of the rake pass through small slots in the back most layer of acrylic to connect to the individual branches.</p>
+            <h4>
+                Lead Screw
+            </h4>
+            <p>Driving the rake to push the branches requires fairly accurate, high force linear motion. Lead screws fit all of these requirements and are cheap and easy to implement. The particular drive system we use consists of a &frac12;&rdquo; - 10 lead screw threaded through the nut in the rake and connected to a stepper motor using a spider shaft coupling. The spider coupler, although not allowing for as much torque to be transmitted, does allow for some slight manufacturing defects leading the misalignments and provides some damping for any mechanical chatter coming from the stepper motor. The lead screw support structure is lasercut from &frac14;&rdquo; baltic birch plywood and can be easily connected and disconnected from the rest of the structure by slotting it in or out of mortise and tenon joints.
+            </p>
+            <div class="row">
+                <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/BallCloseup.png" class="lazy group-left kat">
+                <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/BranchPath.png" class="lazy group-left kat">
+                <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/RakeCloseUp.png" class="lazy group-left kat">
+                <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/LeadScrewRake.png" class="lazy group-left kat">
+            </div>
+
+            <h4>
+                The Irises
+            </h4>
+            <p>
+                <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/iriscloseup.png" class="lazy inline-left kat">The aperture subsystem is made up of five mechanical irises connected in a gear train. The inspiration for the irises came from a previous Olin project worked on by one of the team members as well as <a href="http://www.youtube.com/watch?v=r0y_uNoYqWM">other projects</a>. Each iris has a range of motion of around 30 degrees and is actuated by rotating the outer race. The irises were positioned directly behind the curved ends of the branches so that the opening of the aperture is partially encircled by the path of the branch.
+            </p>
+            <p>
+                Since one of the goals of this project was mechanical elegance, the design decision was made to power the irises with a gear train. This fulfils this goal and allows the method of power transmission to remain transparent.The gear train that powers the irises is arranged approximately in a fibonacci spiral to add to the aesthetics of the gear train.
+            </p>
+            <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/FibonacciGears.JPG" class="lazy inline-right kat">
+            <p>
+                Overall the gear train has a 1:1 ratio so that each iris will open and close at the same rate as all the others. This was accomplished by a 2:1 ratio after each iris to account for the 2:3 ratio that occurs between the main gears and each iris.</p>
+            <p>
+                The gears for this iteration were lasercut out of &#8539;&rdquo; Baltic Birch plywood. To reduce the friction in the system, sheets of Teflon were placed between the gears and the back plate. The irises themselves were also cut out of &#8539;&rdquo; Baltic Birch and were assembled using 1/16&rdquo; dowel pins. The outer races of the irises move along slots that are restrained by dowel pins in the back plate. These slots were lubricated with graphite to further reduce friction. Overall the amount of friction in this system was relatively low until the pieces needed to be further constrained in order to have the system work while positioned vertically. This was done using epoxy and cyanoacrylate. This process did restrain the system but added more sticking points and increased the friction because the dowel pins were not epoxied perfectly orthogonal to the parts which increased surface area and reduced the amount of necessary play in the system. Another downside to the initial iteration is that the teeth of the wooden gears were slightly undersized because of the kerf of the laser used to cut them. This significantly increased the backlash of each gear which magnified the inefficiency of the system over the length of the gear train.
+            </p>
+            <p>
+                Because of this inefficiency the method of transmission changed as the system was assembled. The initial approach of transmission was to power a single gear with a stepper motor at the beginning of the gear train. However, powering from one side multiplies the inefficiencies across the remaining 12 gears (including the outer races of the 5 irises). This results in the irises at the end of the train not fully opening or closing with the rest of the system. To reduce these inefficiencies the decision was made to power the center gear so that by each end of the line the irises would only have the accumulated backlash of 6 gears. To accomplish this a timing belt and pulley system with tensioner was added to our assembly after most fabrication had occurred.
+            </p>
         </section>
-        <section id="eletrical">
+        <section id="electrical">
             <div class="page-header">
                 <h2>The Electrical System</h2>
             </div>
-            <p>Lorem ipsum Minim consectetur do ad labore labore ea ullamco nisi sunt ex Excepteur dolor consectetur incididunt ut cillum aliqua elit dolore Ut consectetur minim pariatur Ut Ut consequat pariatur exercitation ea ullamco nisi in non laboris enim non eiusmod Duis cupidatat irure deserunt occaecat deserunt cupidatat sint in proident aliqua occaecat quis cupidatat cupidatat nulla anim incididunt sit elit qui non quis magna Ut culpa mollit ut consequat incididunt proident in anim dolor culpa consequat ad dolor veniam reprehenderit aliquip reprehenderit labore sed commodo irure cillum exercitation in proident Ut do cillum occaecat enim dolore reprehenderit quis quis consequat enim anim dolor deserunt sit magna enim culpa exercitation est eu reprehenderit ad commodo Excepteur magna proident ut mollit incididunt exercitation eu eiusmod cupidatat dolore eiusmod pariatur dolor eu dolor dolor nulla tempor sint eiusmod deserunt sunt in in laboris elit voluptate non ex occaecat est magna nisi eu aliqua cillum dolor ullamco culpa aliquip nulla et exercitation adipisicing Excepteur deserunt eu irure laboris fugiat elit in laborum sunt ut adipisicing ea dolore enim deserunt laboris et velit dolore id occaecat ea occaecat sint nisi in occaecat laborum dolore exercitation tempor cillum eiusmod exercitation ullamco adipisicing dolor cupidatat ut amet enim cupidatat quis ad elit veniam cillum ad do magna consectetur nostrud Duis dolore commodo eiusmod reprehenderit quis cupidatat elit id nisi ex nostrud minim tempor et cupidatat voluptate in.</p>
-            <ul>
-                <li>Item</li>
-                <li>Item</li>
-                <li>Item</li>
-                <li>Item</li>
-                <li>Item</li>
-            </ul>
-            <p>Lorem ipsum Commodo voluptate ut nisi deserunt Ut dolor anim velit consequat dolor nulla consequat Excepteur ex sit ullamco sint do dolore ad ex ut dolor dolore sint fugiat.</p>
+            <p>
+                The electrical system contains two main components: the custom PCB and the Elecanisms electrical board. The Elecanisms board features a PIC24F microcontroller which was utilized for the software that drove the motors and received user inputs. A major goal on the electrical sub team was to design and utilize a custom PCB as no one on the team had previously done so during their time at Olin. The custom PCB was created to house the motor drivers and an LED driver circuit.
+            </p>
+            <h4>
+                Motor Driver
+            </h4>
+            <p>
+                The mechanical system required two motors in total for the rake and irises. We found a few <a href="http://s3.amazonaws.com/applied-motion-pdf/HT23-397.pdf">HT23-397</a> stepper motors that had been previously used in a Principles of Engineering project and used them as they would be easy to drive.
+            </p>
+            <p>
+                A requirement for the project was to use the course electrical board that had a PIC24F. The board was only able to supply 3 Volt logic, and the <a href="http://www.toshiba.com/taec/components2/Datasheet_Sync/201103/DST_TB6560-TDE_EN_27885.pdf">TB6560AHQ</a> stepper motor driver chip that we planned on using required 5 Volt logic. We resolved this by adding a <a href="http://www.ti.com/lit/ds/symlink/lm1117-n.pdf">LM117T-5</a> 5 Volt regulator and <a href="http://www.ti.com/lit/ds/symlink/sn54hct244-sp.pdf">SN54HCT244-SP</a> octal buffer to convert the 3V output to a 5V input.</p>
+            <h4>
+                Custom PCB
+            </h4>
+            <p>
+                <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/PCB_layout.png" class="lazy inline-left" id="pcblayout">Our custom PCB wired together the PIC24F 12V and 3V power supply to our stepper motor drivers, 5V voltage regular, and LED drive circuitry. We had originally laid out the board using Eagle, with the intent to order through <a href="http://oshpark.com/">OSH Park</a>, but due to time constraints, we used <a href="http://www.expresspcb.com/">ExpressPCB</a>.
+            </p>
+            <p>
+                The advantage of using stepper motors is having a lot of torque available, which helped overcome friction in the mechanical system. However, plenty of torque requires plenty of current, and this was the primary factor in laying out our PCB. All current paths between the motors and the 12V supply on the PIC are 0.40&rdquo; wide, to ensure current can pass through the traces while dissipating sufficient heat. The choice of using 0.40&rdquo; wide traces was made because we were expecting up to 1.5 Amps of current, and advice from peers suggested that while many <a href="http://www.expresspcb.com/ExpressPCBHtm/Tips.htm">trace width tables</a> are conservative, allowing more heat to dissipate couldn&rsquo;t hurt.
+            </p>
+            <p>
+                Unfortunately, we did not thoroughly check our traces for the octal buffer. Upon testing the PCB, we realized that we had flipped the positioning of the octal buffer, such that the outputs were feeding 5 volts into the 3V-tolerant pins on the PIC. Luckily, the 5V did not cause any obvious damage to the pins. We built a breakout out of proto-board to house the octal buffer, along with several wires we used to re-map the pins into the intended configuration.
+            </p>
+            <div class="img-center-container">
+                <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/pcb.png" class="inline-center" id="pcb">
+            </div>
+            <h4>
+                LED Driver
+            </h4>
+            <p>
+                We ordered high brightness LEDs to be used behind the irises. As the high brightness LEDs have a forward voltage drop of 3.2V and forward current of 18mA, we opted to use the 5V regulator as the power rail. We soldered five 100 ohm resistors directly to the leads of the LEDs and daisy chained the power and ground wires to the voltage regulator.
+            </p>
+            <h4>
+                User Input
+            </h4>
+            <p>
+                We used a potentiometer to control the position of the rake and provide an element of interactivity. The potentiometer was routed directly to an analog input on the board. In a surprising coincidence, there was a 1:1 mapping between the range of the potentiometer and the position of the stepper motor driving the rake.
+            </p>
+            <h4>
+                Future Plans
+            </h4>
+            <p>
+                We plan on removing the second stepper driver from the circuit as the irises can be driven using a servo motor. We also plan on integrating limit switches on the ends of the track to ensure that the motor never drives the system beyond its limits.
+            </p>
+
         </section>
         <section id="software">
             <div class="page-header">
                 <h2>The Software System</h2>
             </div>
-            <p>Lorem ipsum Minim consectetur do ad labore labore ea ullamco nisi sunt ex Excepteur dolor consectetur incididunt ut cillum aliqua elit dolore Ut consectetur minim pariatur Ut Ut consequat pariatur exercitation ea ullamco nisi in non laboris enim non eiusmod Duis cupidatat irure deserunt occaecat deserunt cupidatat sint in proident aliqua occaecat quis cupidatat cupidatat nulla anim incididunt sit elit qui non quis magna Ut culpa mollit ut consequat incididunt proident in anim dolor culpa consequat ad dolor veniam reprehenderit aliquip reprehenderit labore sed commodo irure cillum exercitation in proident Ut do cillum occaecat enim dolore reprehenderit quis quis consequat enim anim dolor deserunt sit magna enim culpa exercitation est eu reprehenderit ad commodo Excepteur magna proident ut mollit incididunt exercitation eu eiusmod cupidatat dolore eiusmod pariatur dolor eu dolor dolor nulla tempor sint eiusmod deserunt sunt in in laboris elit voluptate non ex occaecat est magna nisi eu aliqua cillum dolor ullamco culpa aliquip nulla et exercitation adipisicing Excepteur deserunt eu irure laboris fugiat elit in laborum sunt ut adipisicing ea dolore enim deserunt laboris et velit dolore id occaecat ea occaecat sint nisi in occaecat laborum dolore exercitation tempor cillum eiusmod exercitation ullamco adipisicing dolor cupidatat ut amet enim cupidatat quis ad elit veniam cillum ad do magna consectetur nostrud Duis dolore commodo eiusmod reprehenderit quis cupidatat elit id nisi ex nostrud minim tempor et cupidatat voluptate in.</p>
-            <ul>
-                <li>Item</li>
-                <li>Item</li>
-                <li>Item</li>
-                <li>Item</li>
-                <li>Item</li>
-            </ul>
-            <p>Lorem ipsum Commodo voluptate ut nisi deserunt Ut dolor anim velit consequat dolor nulla consequat Excepteur ex sit ullamco sint do dolore ad ex ut dolor dolore sint fugiat.</p>
+            <p>While the control functionality for the ElectriciTree is simple, the software designed to run the tree is intended to be robust, and deal with both intentional and accidental design constraints. The software handles everything from reading a voltage from the potentiometer to moving the stepper motors and handling emergency signals from the limit switches (which are not currently installed). Much of the work in designing software involved creating a simple first order control scheme and properly filtering the input voltage from the pot. All of our code is open source, available at <a href="https://github.com/nrubin/ElecanismsFinalProject">this repository.</a></p>
+            <h4>Architecture</h4>
+            <div class="img-center-container">
+                <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/loopdiagram.PNG" class="lazy inline-center" id="arch">
+            </div>
+            <p>
+                The software is architected around four loops, where each loop gets executed at different frequencies, thereby setting loop priority. Each loop is timed by a separate timer, and the asynchronous nature of the loop execution created some interesting programming challenges that were mostly solved by the use of global variables.
+            </p>
+            <h5>
+                <em>E-Stop Loop</em>
+            </h5>
+            <p>
+                The E-Stop Loop checks the limit switches to see if one has been triggered, debounces the switches due to noise on the digital input pin, and stops the motors if the switch is triggered. Due to oversight during the PCB design process, all pins on the PIC that supported <code>input change</code> interrupts were wired to the stepper drivers, so in order to properly stop operation of the motors during the press of a limit switch, the E-stop loop was executed every 1 &mu;s.
+            </p>
+            <h5>
+                <em>Measure Loop</em>
+            </h5>
+            <p> 
+                The measure loop received voltage measurements from the analog input pin to which the potentiometer was attached. This input was quite noisy, and could vary wildly on small time scales. In order to manage the noise from the potentiometer, two methods were used: an infinite impulse response (IIR) filter along with a peak rejection algorithm.
+            </p>
+            <p> 
+                The IIR filter used was simple (it took only one parameter, &alpha;) and worked very well. Each time the measure loop executed, the new voltage value of the potentiometer was calculated using a weighted sum with the previous voltage:
+                <pre>new_pot_val = ( 1-alpha ) * pot_val + (alpha) * prev_pot_val</pre>
+                This weighted average prevented <code>new_pot_val</code> from changing drastically between measurements. Through experimentation, we found that a value for &alpha; that worked well was 0.25. While this approach helped smooth the signal, it could not smooth out huge swings in the voltage read.
+            </p>
+                In order to handle large swings in voltage, we implented a simple peak rejection algorithm. When the potentiometer value is measured, if the new value is much, much larger than the previous value, the new value is set to the old one, thereby rejecting the new value. While this approach helped stabilize the stepper motor set points, it also rejected very fast and large manipulations of the potentiometer by hand, but we felt that this was a tradeoff worth making.
+            <p>
+
+             </p>
+            <h5>
+                <em>Signal Loop</em>
+            </h5>
+            <p> The signal loop was exceedingly simple: it wrote the current value of a <code>clk</code> variable to the digital outputs for both steppers, and then inverted <code> clk</code>. This effectively created a square wave at a specific frequency, and since this code worked the first time we wrote it, we decided against using <code>oc_pwm</code> for this purpose. If it ain&rsquo;t broke, don&rsquo; fix it! </p>
+            <h5>
+                <em>Control Loop</em>
+            </h5>
+            <p> 
+                The control loop handled the open-loop position tracking of the stepper motors, as well as controlling when the stepper motors stopped. Since the set point from the potentiometer could vary during the long period of the control loop, a function called <code>within_interval</code> was written to detect when the stepper motor position was within an acceptable interval from the desired set point. This made the stepper motors much more stable.
+            </p>
         </section>
-        <section id="team">
+<!--         <section id="reflection">
+            <div class="page-header">
+                <h2>Reflection</h2>
+            </div>
+            <p> </p>
+        </section>
+ -->        <section id="team">
             <div class="page-header">
                 <h2>The Team</h2>
             </div>
-            <p>Lorem ipsum Minim consectetur do ad labore labore ea ullamco nisi sunt ex Excepteur dolor consectetur incididunt ut cillum aliqua elit dolore Ut consectetur minim pariatur Ut Ut consequat pariatur exercitation ea ullamco nisi in non laboris enim non eiusmod Duis cupidatat irure deserunt occaecat deserunt cupidatat sint in proident aliqua occaecat quis cupidatat cupidatat nulla anim incididunt sit elit qui non quis magna Ut culpa mollit ut consequat incididunt proident in anim dolor culpa consequat ad dolor veniam reprehenderit aliquip reprehenderit labore sed commodo irure cillum exercitation in proident Ut do cillum occaecat enim dolore reprehenderit quis quis consequat enim anim dolor deserunt sit magna enim culpa exercitation est eu reprehenderit ad commodo Excepteur magna proident ut mollit incididunt exercitation eu eiusmod cupidatat dolore eiusmod pariatur dolor eu dolor dolor nulla tempor sint eiusmod deserunt sunt in in laboris elit voluptate non ex occaecat est magna nisi eu aliqua cillum dolor ullamco culpa aliquip nulla et exercitation adipisicing Excepteur deserunt eu irure laboris fugiat elit in laborum sunt ut adipisicing ea dolore enim deserunt laboris et velit dolore id occaecat ea occaecat sint nisi in occaecat laborum dolore exercitation tempor cillum eiusmod exercitation ullamco adipisicing dolor cupidatat ut amet enim cupidatat quis ad elit veniam cillum ad do magna consectetur nostrud Duis dolore commodo eiusmod reprehenderit quis cupidatat elit id nisi ex nostrud minim tempor et cupidatat voluptate in.</p>
-            <ul>
-                <li>Item</li>
-                <li>Item</li>
-                <li>Item</li>
-                <li>Item</li>
-                <li>Item</li>
-            </ul>
-            <p>Lorem ipsum Commodo voluptate ut nisi deserunt Ut dolor anim velit consequat dolor nulla consequat Excepteur ex sit ullamco sint do dolore ad ex ut dolor dolore sint fugiat.</p>
+            <div class="row">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <div class="thumbail"> 
+                        <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/shivam.jpg" style="width:90%;">
+                        <h3>Shivam Desai</h3>
+                        <span>Straight out of Lomita, California, majoring in Electrical and Computer Engineering with a focus in Robotics. Interests include robotics, bioinspiration, shape memory alloys, control theory, and violent-gory-bloodbath-"Oh my god Danny Trejo just used that guy's intestines to rappel down the building!" movies. Shivam was part of a team of six students who created a wall climbing robot in six weeks on a $250 budget. "Why do something ordinary when you can do something EXTRA- ordinary?"</span>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <div class="thumbail"> 
+                        <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/asa.jpg" style="width:90%;">
+                        <h3>Asa Eckert-Erdheim</h3>
+                        <span>Asa is from Durham, North Carolina and is majoring in Engineering with a concentration in Robotics. His interests span a wide variety of academic fields, including robotics (especially the bio-inspired sort), sustainability, space exploration and engineering education. Outside of Olin, Asa enjoys a new sci-fi book, a tasty cheese and music that is at least 20 years old.</span>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <div class="thumbail"> 
+                        <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/kstegner.jpg" style="width:90%;">
+                        <h3>Katherine Stegner</h3>
+                        <span>Kat is a native of Spudville, Idaho, where she works at a combination potato farm and Taco Bell, as general manager. She's majoring in Potato Engineering, although she's currently on leave while leading an agricultural revolution in the Ukraine. Kat would say the list of her interests is too long, but in reality it consists of &rdquo;potatoes&ldquo; written 5,000 times.</span>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <div class="thumbail"> 
+                        <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/noam_rubin.png" style="width:90%;">
+                        <h3>Noam Rubin</h3>
+                        <span>Noam reigns from Los Angeles, but will be a San Francisco native in a few months. An Electrical and Computer engineer, Noam's interest span from robotics to interface design. Outside of school, Noam enjoys seeing the world and a good brewski.</span>
+                    </div>
+                </div>
+            </div>
         </section>
     </div>
-
-
+    <section id="footer">
+        <span style="border-top: 1px solid #eeeeee">&copy; Noam Rubin 2013. No rights reserved #yolo</span>
+    </section>
     </div>
 </body>
 

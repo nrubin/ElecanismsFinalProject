@@ -2,10 +2,15 @@
     "use strict"
 
     $(document).ready(function() {
-    	$("img.lazy").lazyload({effect:"fadeIn"});
+        $("img.lazy").lazyload({
+            effect: "fadeIn"
+        });
         var sectionid = "overview";
         $(".navbar-nav li a[href='#" + sectionid + "']").addClass("active");
         autoHighlightNavBar();
+        $('.carousel').carousel({
+            interval: 2000
+        })
     })
 
     function autoHighlightNavBar() {
