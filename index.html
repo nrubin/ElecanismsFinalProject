@@ -98,28 +98,28 @@
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
                     <div class="item active">
-                        <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/mech-carousel/full.png">
+                        <img src="./static/img/mech-carousel/full.png">
                     </div>
                     <div class="item">
-                        <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/mech-carousel/fullrender1.png">
+                        <img src="./static/img/mech-carousel/fullrender1.png">
                     </div>
                     <div class="item">
-                        <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/mech-carousel/fullrender2.png">
+                        <img src="./static/img/mech-carousel/fullrender2.png">
                     </div>
                     <div class="item">
-                        <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/mech-carousel/iris1.png">
+                        <img src="./static/img/mech-carousel/iris1.png">
                     </div>
                     <div class="item">
-                        <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/mech-carousel/iris2.png">
+                        <img src="./static/img/mech-carousel/iris2.png">
                     </div>
                     <div class="item">
-                        <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/mech-carousel/leadscrew1.png">
+                        <img src="./static/img/mech-carousel/leadscrew1.png">
                     </div>
                     <div class="item">
-                        <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/mech-carousel/leadscrew3.png">
+                        <img src="./static/img/mech-carousel/leadscrew3.png">
                     </div>
                     <div class="item">
-                        <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/mech-carousel/rake1.png">
+                        <img src="./static/img/mech-carousel/rake1.png">
                     </div>                    
                 </div>
 
@@ -177,22 +177,22 @@
             <p>Driving the rake to push the branches requires fairly accurate, high force linear motion. Lead screws fit all of these requirements and are cheap and easy to implement. The particular drive system we use consists of a &frac12;&rdquo; - 10 lead screw threaded through the nut in the rake and connected to a stepper motor using a spider shaft coupling. The spider coupler, although not allowing for as much torque to be transmitted, does allow for some slight manufacturing defects leading the misalignments and provides some damping for any mechanical chatter coming from the stepper motor. The lead screw support structure is lasercut from &frac14;&rdquo; baltic birch plywood and can be easily connected and disconnected from the rest of the structure by slotting it in or out of mortise and tenon joints.
             </p>
             <div class="row">
-                <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/BallCloseup.png" class="lazy group-left kat">
-                <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/BranchPath.png" class="lazy group-left kat">
-                <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/RakeCloseUp.png" class="lazy group-left kat">
-                <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/LeadScrewRake.png" class="lazy group-left kat">
+                <img src="./static/img/BallCloseup.png" class="lazy group-left kat">
+                <img src="./static/img/BranchPath.png" class="lazy group-left kat">
+                <img src="./static/img/RakeCloseUp.png" class="lazy group-left kat">
+                <img src="./static/img/LeadScrewRake.png" class="lazy group-left kat">
             </div>
 
             <h4>
                 The Irises
             </h4>
             <p>
-                <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/iriscloseup.png" class="lazy inline-left kat">The aperture subsystem is made up of five mechanical irises connected in a gear train. The inspiration for the irises came from a previous Olin project worked on by one of the team members as well as <a href="http://www.youtube.com/watch?v=r0y_uNoYqWM">other projects</a>. Each iris has a range of motion of around 30 degrees and is actuated by rotating the outer race. The irises were positioned directly behind the curved ends of the branches so that the opening of the aperture is partially encircled by the path of the branch.
+                <img src="./static/img/iriscloseup.png" class="lazy inline-left kat">The aperture subsystem is made up of five mechanical irises connected in a gear train. The inspiration for the irises came from a previous Olin project worked on by one of the team members as well as <a href="http://www.youtube.com/watch?v=r0y_uNoYqWM">other projects</a>. Each iris has a range of motion of around 30 degrees and is actuated by rotating the outer race. The irises were positioned directly behind the curved ends of the branches so that the opening of the aperture is partially encircled by the path of the branch.
             </p>
             <p>
                 Since one of the goals of this project was mechanical elegance, the design decision was made to power the irises with a gear train. This fulfils this goal and allows the method of power transmission to remain transparent.The gear train that powers the irises is arranged approximately in a fibonacci spiral to add to the aesthetics of the gear train.
             </p>
-            <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/FibonacciGears.JPG" class="lazy inline-right kat">
+            <img src="./static/img/FibonacciGears.JPG" class="lazy inline-right kat">
             <p>
                 Overall the gear train has a 1:1 ratio so that each iris will open and close at the same rate as all the others. This was accomplished by a 2:1 ratio after each iris to account for the 2:3 ratio that occurs between the main gears and each iris.</p>
             <p>
@@ -221,7 +221,7 @@
                 Custom PCB
             </h4>
             <p>
-                <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/PCB_layout.png" class="lazy inline-left" id="pcblayout">Our custom PCB wired together the PIC24F 12V and 3V power supply to our stepper motor drivers, 5V voltage regular, and LED drive circuitry. We had originally laid out the board using Eagle, with the intent to order through <a href="http://oshpark.com/">OSH Park</a>, but due to time constraints, we used <a href="http://www.expresspcb.com/">ExpressPCB</a>.
+                <img src="./static/img/PCB_layout.png" class="lazy inline-left" id="pcblayout">Our custom PCB wired together the PIC24F 12V and 3V power supply to our stepper motor drivers, 5V voltage regular, and LED drive circuitry. We had originally laid out the board using Eagle, with the intent to order through <a href="http://oshpark.com/">OSH Park</a>, but due to time constraints, we used <a href="http://www.expresspcb.com/">ExpressPCB</a>.
             </p>
             <p>
                 The advantage of using stepper motors is having a lot of torque available, which helped overcome friction in the mechanical system. However, plenty of torque requires plenty of current, and this was the primary factor in laying out our PCB. All current paths between the motors and the 12V supply on the PIC are 0.40&rdquo; wide, to ensure current can pass through the traces while dissipating sufficient heat. The choice of using 0.40&rdquo; wide traces was made because we were expecting up to 1.5 Amps of current, and advice from peers suggested that while many <a href="http://www.expresspcb.com/ExpressPCBHtm/Tips.htm">trace width tables</a> are conservative, allowing more heat to dissipate couldn&rsquo;t hurt.
@@ -230,7 +230,7 @@
                 Unfortunately, we did not thoroughly check our traces for the octal buffer. Upon testing the PCB, we realized that we had flipped the positioning of the octal buffer, such that the outputs were feeding 5 volts into the 3V-tolerant pins on the PIC. Luckily, the 5V did not cause any obvious damage to the pins. We built a breakout out of proto-board to house the octal buffer, along with several wires we used to re-map the pins into the intended configuration.
             </p>
             <div class="img-center-container">
-                <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/pcb.png" class="inline-center" id="pcb">
+                <img src="./static/img/pcb.png" class="inline-center" id="pcb">
             </div>
             <h4>
                 LED Driver
@@ -259,7 +259,7 @@
             <p>While the control functionality for the ElectriciTree is simple, the software designed to run the tree is intended to be robust, and deal with both intentional and accidental design constraints. The software handles everything from reading a voltage from the potentiometer to moving the stepper motors and handling emergency signals from the limit switches (which are not currently installed). Much of the work in designing software involved creating a simple first order control scheme and properly filtering the input voltage from the pot. All of our code is open source, available at <a href="https://github.com/nrubin/ElecanismsFinalProject">this repository.</a></p>
             <h4>Architecture</h4>
             <div class="img-center-container">
-                <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/loopdiagram.PNG" class="lazy inline-center" id="arch">
+                <img src="./static/img/loopdiagram.PNG" class="lazy inline-center" id="arch">
             </div>
             <p>
                 The software is architected around four loops, where each loop gets executed at different frequencies, thereby setting loop priority. Each loop is timed by a separate timer, and the asynchronous nature of the loop execution created some interesting programming challenges that were mostly solved by the use of global variables.
@@ -309,7 +309,7 @@
             <div class="row">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     <div class="thumbail"> 
-                        <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/shivam.jpg" style="width:90%;">
+                        <img src="./static/img/shivam.jpg" style="width:90%;">
                         <h3>Shivam Desai</h3>
                         <h5>shivam {AT} students {DOT} olin {DOT} edu</h5>
                         <span>Straight out of Lomita, California, majoring in Electrical and Computer Engineering with a focus in Robotics. Interests include robotics, bioinspiration, shape memory alloys, control theory, and violent-gory-bloodbath-"Oh my god Danny Trejo just used that guy's intestines to rappel down the building!" movies. Shivam was part of a team of six students who created a wall climbing robot in six weeks on a $250 budget. "Why do something ordinary when you can do something EXTRA- ordinary?"</span>
@@ -317,7 +317,7 @@
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     <div class="thumbail"> 
-                        <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/asa.jpg" style="width:90%;">
+                        <img src="./static/img/asa.jpg" style="width:90%;">
                         <h3>Asa Eckert-Erdheim</h3>
                         <h5>asa {AT} students {DOT} olin {DOT} edu</h5>
                         <span>Asa is from Durham, North Carolina and is majoring in Engineering with a concentration in Robotics. His interests span a wide variety of academic fields, including robotics (especially the bio-inspired sort), sustainability, space exploration and engineering education. Outside of Olin, Asa enjoys a new sci-fi book, a tasty cheese and music that is at least 20 years old.</span>
@@ -325,7 +325,7 @@
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     <div class="thumbail"> 
-                        <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/kstegner.jpg" style="width:90%;">
+                        <img src="./static/img/kstegner.jpg" style="width:90%;">
                         <h3>Katherine Stegner</h3>
                        <h5> katherine {DOT} stegner {AT} students {DOT} olin {DOT} edu</h5>
                         <span>Hailing from Moscow, Idaho, Katherine is neither Russion nor a potato farmer and is majoring in Mechanical Engineering. Her interests include building things that move as well as playing on playgrounds and eating toast.</span>
@@ -333,7 +333,7 @@
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     <div class="thumbail"> 
-                        <img src="https://dl.dropboxusercontent.com/u/11830885/elecanisms/noam_rubin.png" style="width:90%;">
+                        <img src="./static/img/noam_rubin.png" style="width:90%;">
                         <h3>Noam Rubin</h3>
                         <h5>noam {AT} students {DOT} olin {DOT} edu</h5>
                         <span>Noam reigns from Los Angeles, but will be a San Francisco native in a few months. An Electrical and Computer engineer, Noam's interest span from robotics to interface design. Outside of school, Noam enjoys seeing the world and a good brewski.</span>
